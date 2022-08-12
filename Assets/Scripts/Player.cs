@@ -8,9 +8,9 @@ namespace Asteroid
         [SerializeField] private float _healPoint;
         [SerializeField] private float _acceleration;
         [SerializeField] private Rigidbody2D _bulet;
+        [SerializeField] private Rigidbody2D _shipRb;
         [SerializeField] private Transform _barrel;
         [SerializeField] private float _force;
-        private float s = 105;
         private Camera _camera;
         private Ship _ship;
         private InputController _inputController;
@@ -20,9 +20,10 @@ namespace Asteroid
 
         private void Awake()
         {     
+            _shipRb = GetComponent<Rigidbody2D>();
             _camera = Camera.main;
             _weapon = new DefaultWeapon(_barrel, _bulet);
-            var moveTransform = new AccelerationMove(transform, _speed, _acceleration);
+            var moveTransform = new AccelerationMove(transform, _speed, _acceleration, _shipRb);
             var rotation = new RotationShip(transform);
             _ship = new Ship(moveTransform, rotation);
             _playerHealth = new PlayerHealth(_healPoint);
