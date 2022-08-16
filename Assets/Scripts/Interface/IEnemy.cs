@@ -1,7 +1,8 @@
 ﻿
 namespace Asteroid
 {
-    internal class Asteroid : Enemy
+    internal interface IEnemy
     {
+       
     }
 }

@@ -4,7 +4,6 @@ namespace Asteroid
 {
     public class MoveTransform : IMove
     {
-        //private readonly Transform _transform;
         private readonly float _speed;
         private Vector3 _move;
         private Rigidbody2D _rigidbody;
@@ -22,14 +21,10 @@ namespace Asteroid
         {
             var speed = deltaTime * Speed;
             Vector3 movement = new Vector3(horizontal, vertical, 0.0f);
-            Debug.Log(movement);
             _rigidbody.AddForce(movement * (speed * _rigidbody.mass),ForceMode2D.Impulse);
-
+        }
             //_move.Set(horizontal * speed, vertical * speed, 0.0f);
             //_transform.localPosition += _move;
-            Debug.Log(speed);
-
-        }
 
     }
 }

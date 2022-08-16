@@ -2,6 +2,6 @@
 {
     internal interface IExecute
     {
-        void Execute();
+        public void Execute();
     }
 }

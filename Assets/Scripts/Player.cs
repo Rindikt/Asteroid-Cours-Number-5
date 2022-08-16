@@ -19,7 +19,7 @@ namespace Asteroid
 
 
         private void Awake()
-        {     
+        {   
             _shipRb = GetComponent<Rigidbody2D>();
             _camera = Camera.main;
             _weapon = new DefaultWeapon(_barrel, _bulet);
@@ -43,7 +43,7 @@ namespace Asteroid
         {
             if (collision.collider.TryGetComponent(out Enemy enemy))
             {
-                _playerHealth.GetDemage(enemy._demage);
+                _playerHealth.GetDemage(1);
             }
             if (true)
             {
