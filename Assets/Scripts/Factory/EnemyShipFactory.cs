@@ -11,9 +11,10 @@ namespace Asteroid
         }
         protected override GameObject CreateEnemy(EnemyType type, ref GameObject scelet)
         {
-            if (!scelet.TryGetComponent(out EnemyShip asteroid))
+            if (!scelet.TryGetComponent(out EnemyShip ship))
             {
                 scelet.AddComponent<EnemyShip>();
+                //ship._weapon = scelet.GetComponentInChildren<Transform>();
             }
 
             switch (type)

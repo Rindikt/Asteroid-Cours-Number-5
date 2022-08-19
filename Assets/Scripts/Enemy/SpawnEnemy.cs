@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace Asteroid
 {
-    internal class SpawnEnemy : IExecute
+     internal class SpawnEnemy 
     {
         private AsteroidFactory _asteroidFactory;
         private EnemyShipFactory _enemyShipFactory;
-        private List<Enemy> _enemy;
+        private ViewServices _viewServices;
         private float _spawnTime { get; set; }
-        public SpawnEnemy(AsteroidFactory asteroidFactory, EnemyShipFactory enemyShipFactory, List<Enemy> enemy)
+        public SpawnEnemy(AsteroidFactory asteroidFactory, EnemyShipFactory enemyShipFactory)
         {
+            _viewServices = ViewServices.Instance();
             _enemyShipFactory = enemyShipFactory;
             _asteroidFactory = asteroidFactory;
             _spawnTime = Random.Range(2, 5);
-            _enemy = enemy;
         }
 
         public void Execute()
@@ -29,7 +29,11 @@ namespace Asteroid
                 switch (ran)
                 {
                     case 0:
-                        _enemy.Add(_asteroidFactory.Get(EnemyType.AsteroidSmal));
+                        var unit = _viewServices.Create( _asteroidFactory.Get(EnemyType.AsteroidSmal));
+                        var un = unit.GetComponent<EnemyAsteroid>();
+                        un.demage = 4;
+                        un._healPoint = 5;
+                        un.Death += () => _viewServices.Destroy(unit);
                         break;
                     case 1: _asteroidFactory.Get(EnemyType.AsteroidMedium);
                         break;

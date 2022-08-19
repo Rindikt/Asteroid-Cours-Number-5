@@ -5,28 +5,50 @@ namespace Asteroid
     public sealed class DefaultWeapon : MonoBehaviour, IWeapon
     {
         private Transform _weapon;
-        private Rigidbody2D _bulet;
+        private GameObject _bullet;
         private float _force = 20.0f;
-        public DefaultWeapon(Transform weapon, Rigidbody2D bulet)
+        private ViewServices _viewServices;
+        private ObjectPool pool;
+        public float demage => 2;
+
+        public DefaultWeapon(Transform weapon, GameObject bulet)
         {
             _weapon = weapon;
-            _bulet = bulet;
-            _bulet.GetComponent<Rigidbody2D>();
-
+            _bullet = bulet;
+            _viewServices = ViewServices.Instance();
+            pool = new ObjectPool(_bullet);
         }
 
-        public float Demage { get; protected set; }
 
         public void Attack()
         {
             if (Input.GetButtonDown(MauseButtonManager.LEFT_MOUSE_BUTTON))
             {
-                var bulet = Object.Instantiate(_bulet, _weapon.position,_weapon.rotation);
-
-                //bulet.transform.Translate(_weapon.transform.up * _force,Space.Self);
-                bulet.AddForce(_weapon.transform.up * _force,ForceMode2D.Impulse);
+               var bul = CreateBull();
+               bul.AddForce(_weapon.transform.up * _force,ForceMode2D.Impulse);
 
             }
         }
+        private void SetBuletPos(GameObject bullet)
+        {
+            bullet.transform.position = _weapon.position;
+            bullet.transform.rotation = _weapon.rotation;
+        }     
+        public Rigidbody2D CreateBull()
+        {
+            var bullet = pool.Pop();
+            SetBuletPos(bullet);
+            if (!bullet.TryGetComponent<Bullet>(out Bullet _bullet))
+            {
+                var s = bullet.AddComponent<Bullet>();
+                s.demage = this.demage;
+                s.Hit += () => pool.Push(bullet);
+            }
+
+
+            var bul = bullet.GetComponent<Rigidbody2D>();
+            return bul;
+        }
     }
 }
+                //bulet.transform.Translate(_weapon.transform.up * _force,Space.Self);

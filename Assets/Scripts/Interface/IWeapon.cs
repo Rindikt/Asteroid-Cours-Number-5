@@ -3,7 +3,7 @@ namespace Asteroid
 {
     internal interface IWeapon
     {
-        float Demage { get; }
+        float demage { get; }
         void Attack();
     }
 }

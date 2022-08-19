@@ -7,7 +7,7 @@ namespace Asteroid
         [SerializeField] private float _speed;
         [SerializeField] private float _healPoint;
         [SerializeField] private float _acceleration;
-        [SerializeField] private Rigidbody2D _bulet;
+        [SerializeField] private GameObject _bulet;
         [SerializeField] private Rigidbody2D _shipRb;
         [SerializeField] private Transform _barrel;
         [SerializeField] private float _force;
