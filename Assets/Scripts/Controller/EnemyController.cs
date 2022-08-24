@@ -9,16 +9,12 @@ namespace Asteroid
         [SerializeField] private float _speed;
 
         private SpawnEnemy _spawnEnemy;
-        private AsteroidFactory _asteroidFactory;
-        private EnemyShipFactory _enemyShipFactory;
+
 
 
         private void Start()
         {
-
-            _enemyShipFactory = new EnemyShipFactory(_spawnPoint);
-            _asteroidFactory = new AsteroidFactory(_spawnPoint);
-            _spawnEnemy = new SpawnEnemy(_asteroidFactory, _enemyShipFactory);
+            _spawnEnemy = new SpawnEnemy(_spawnPoint);
 
         }
         private void Update()

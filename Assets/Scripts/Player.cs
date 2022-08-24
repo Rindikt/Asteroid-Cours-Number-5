@@ -7,7 +7,7 @@ namespace Asteroid
         [SerializeField] private float _speed;
         [SerializeField] private float _healPoint;
         [SerializeField] private float _acceleration;
-        [SerializeField] private GameObject _bulet;
+        private GameObject _bullet;
         [SerializeField] private Rigidbody2D _shipRb;
         [SerializeField] private Transform _barrel;
         [SerializeField] private float _force;
@@ -22,22 +22,25 @@ namespace Asteroid
         {   
             _shipRb = GetComponent<Rigidbody2D>();
             _camera = Camera.main;
-            _weapon = new DefaultWeapon(_barrel, _bulet);
+            _bullet = Resources.Load<GameObject>("Bullet/Bullet");
             var moveTransform = new AccelerationMove(transform, _speed, _acceleration, _shipRb);
             var rotation = new RotationShip(transform);
             _ship = new Ship(moveTransform, rotation);
             _playerHealth = new PlayerHealth(_healPoint);
             _inputController = new InputController(_ship);
-            _inputController.onCkickLeftMause += _weapon.Attack;
+            _weapon = new DefaultWeapon(_barrel, _bullet);
         }
-  
+
 
         private void Update()
         {
             var diraction = Input.mousePosition - _camera.WorldToScreenPoint(transform.position);
             _ship.Rotation(diraction);
-            _inputController.Execute(); 
-            
+            _inputController.Execute();
+            if (Input.GetButtonDown(MauseButtonManager.LEFT_MOUSE_BUTTON))
+            {
+                _weapon.Attack();
+            }
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {

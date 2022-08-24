@@ -14,6 +14,7 @@ namespace Asteroid
 
         public void Push(GameObject go)
         {
+            Debug.Log(go.name);
             _stack.Push(go);
             go.SetActive(false);
         }

@@ -6,20 +6,21 @@ namespace Asteroid
 {
     internal class EnemyShip : Enemy
     {
-        event Action Death = delegate () { };
+        public event Action Death = delegate () { };
         private Transform _player;
         public Transform _weapon;
-        private Rigidbody2D _bullet;
+        private GameObject _bullet;
         private Health _health;
         private float _stopDistance = 5;
-        private float force = 10.0f;
+        private float force = 3.0f;
         private float reload = 0;
+        private IWeapon weapon;
         private void Awake()
         {
             _player = FindObjectOfType<Player>().transform;
             _body = GetComponent<Rigidbody2D>();
-            _bullet = Resources.Load<Rigidbody2D>("Bullet/BulletEnemy");
-            _healPoint = 15;
+            _bullet = Resources.Load<GameObject>("Bullet/BulletEnemy");
+            weapon = new DefaultWeapon(_weapon, _bullet);
             _health = new Health(_healPoint);
 
         }
@@ -30,7 +31,8 @@ namespace Asteroid
         protected override void Move()
         {
             var distance = (transform.position - _player.position).magnitude;
-            Rotation(_player.transform.position);
+            transform.right = _player.position - transform.position;
+            //Rotation(_player.transform.position);
             if (distance > _stopDistance)
             {      
                 transform.position = Vector2.MoveTowards(transform.position,_player.position, 0.02f);
@@ -43,8 +45,8 @@ namespace Asteroid
                 }
                 else
                 {
-                Attack();
-                    reload = 7;
+                    weapon.Attack();
+                    reload = 2;
                 }
             }
         }
@@ -55,23 +57,9 @@ namespace Asteroid
                 _healPoint = _health.GetDamage(bullet.demage);
                 if (_healPoint <= 0)
                 {
-                    Destroy(gameObject);
                     Death.Invoke();
                 }
             }
-        }
-        
-        private void Attack()
-        {
-            //var bulet = Object.Instantiate(_bullet, _weapon.position, _weapon.rotation);
-
-            //bulet.transform.Translate(_weapon.transform.up * _force,Space.Self);
-            //bulet.AddForce(transform.up * force, ForceMode2D.Impulse);
-        }
-        public void Rotation(Vector3 derection)
-        {
-            var angle = Mathf.Atan2(derection.y, derection.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
     }
 }

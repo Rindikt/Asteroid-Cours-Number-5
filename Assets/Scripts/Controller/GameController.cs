@@ -11,7 +11,7 @@ namespace Asteroid
         private void Awake()
         {
             //StaticEnemyFactory.CreateEnemy(_spawnPoint);
-            _player = PlayerFactory.GetPlayer(_startPosition, DefaultView);
+            //_player = PlayerFactory.GetPlayer(_startPosition, DefaultView);
             
         }
         private void Start()

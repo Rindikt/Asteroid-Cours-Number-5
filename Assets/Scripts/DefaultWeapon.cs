@@ -2,12 +2,11 @@ using UnityEngine;
 
 namespace Asteroid
 {
-    public sealed class DefaultWeapon : MonoBehaviour, IWeapon
+    public sealed class DefaultWeapon : IWeapon
     {
         private Transform _weapon;
         private GameObject _bullet;
         private float _force = 20.0f;
-        private ViewServices _viewServices;
         private ObjectPool pool;
         public float demage => 2;
 
@@ -15,19 +14,16 @@ namespace Asteroid
         {
             _weapon = weapon;
             _bullet = bulet;
-            _viewServices = ViewServices.Instance();
+
             pool = new ObjectPool(_bullet);
         }
 
 
         public void Attack()
         {
-            if (Input.GetButtonDown(MauseButtonManager.LEFT_MOUSE_BUTTON))
-            {
                var bul = CreateBull();
                bul.AddForce(_weapon.transform.up * _force,ForceMode2D.Impulse);
 
-            }
         }
         private void SetBuletPos(GameObject bullet)
         {
@@ -51,4 +47,3 @@ namespace Asteroid
         }
     }
 }
-                //bulet.transform.Translate(_weapon.transform.up * _force,Space.Self);

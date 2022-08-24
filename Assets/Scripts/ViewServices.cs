@@ -8,7 +8,7 @@ namespace Asteroid
         private static ViewServices viewServices;
         private ViewServices() { }
 
-        private readonly Dictionary<int, ObjectPool> _viewCache = new Dictionary<int, ObjectPool>();
+        private readonly Dictionary<string, ObjectPool> _viewCache = new Dictionary<string, ObjectPool>();
         
         public static ViewServices Instance()
         {
@@ -18,20 +18,24 @@ namespace Asteroid
             }
             return viewServices;
         }
-        public GameObject Create(GameObject prefab)
+        public GameObject Get(string name, GameObject prefab)
         {
-            if (!_viewCache.TryGetValue(prefab.GetInstanceID(), out ObjectPool viewPool))
+            if (!_viewCache.TryGetValue(name, out ObjectPool viewPool))
             {
                 viewPool = new ObjectPool(prefab);
-                _viewCache[prefab.GetInstanceID()] = viewPool;
-            }
-            
-            return viewPool.Pop();
+                _viewCache[name] = viewPool;
+             
+            }   
+            var enemy = viewPool.Pop();
+            return enemy;
         }
 
-        public void Destroy(GameObject go)
+        public void Destroy(string name,GameObject go)
         {
-            _viewCache[go.GetInstanceID()].Push(go);
+            Debug.Log("дестрой");
+            _viewCache[name].Push(go);
+
+
         }
     }
 }

@@ -14,10 +14,13 @@ namespace Asteroid
 
         private void Awake()
         {
-            _healPoint = 15;
-            _health = new Health(_healPoint);
             _body = GetComponent<Rigidbody2D>();
             _finishPos = new Vector2(transform.position.x- _range, transform.position.y);
+        }
+        private void Start()
+        {
+            _health = new Health(_healPoint);
+            
         }
         protected override void Move()
         {
@@ -30,13 +33,13 @@ namespace Asteroid
                 _healPoint = _health.GetDamage(bullet.demage);
                 if (_healPoint <= 0)
                 {
-                    Destroy(gameObject);
+
                     Death.Invoke();
+                    Debug.Log(Death);
                 }
             }
             if (collision.collider.CompareTag(TagManager.PLAYER)|| collision.collider.CompareTag(TagManager.FENCE))
             {
-                Destroy(gameObject);
                 Death.Invoke();
             }
         }
