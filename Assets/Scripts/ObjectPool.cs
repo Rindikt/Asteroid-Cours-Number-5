@@ -29,7 +29,6 @@ namespace Asteroid
             else
             {
                 go = _stack.Pop();
-
             }
             go.SetActive(true);
             return go;

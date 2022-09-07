@@ -85,6 +85,7 @@ namespace Asteroid
             {
                 ship.Death += () => _viewServices.Destroy(ManegerEnemy.LIGHT_FIGHTER,enemy);
             }
+
             //switch (rand)
             //{
             //    case 0:

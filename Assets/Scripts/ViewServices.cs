@@ -25,7 +25,8 @@ namespace Asteroid
                 viewPool = new ObjectPool(prefab);
                 _viewCache[name] = viewPool;
              
-            }   
+            }
+            Debug.Log(prefab.name);
             var enemy = viewPool.Pop();
             return enemy;
         }
