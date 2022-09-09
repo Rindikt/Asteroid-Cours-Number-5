@@ -5,7 +5,7 @@ namespace Asteroid
 {
     public sealed class ObjectPool
     {
-        private readonly Stack<GameObject> _stack = new Stack<GameObject> ();
+        private readonly Stack<GameObject> _stack = new Stack<GameObject>();
         private GameObject _prefab;
         public ObjectPool(GameObject prefab)
         {
@@ -22,7 +22,7 @@ namespace Asteroid
         public GameObject Pop()
         {
             GameObject go;
-            if (_stack.Count ==0)
+            if (_stack.Count == 0)
             {
                 go = Object.Instantiate(_prefab);
             }
@@ -32,6 +32,6 @@ namespace Asteroid
             }
             go.SetActive(true);
             return go;
-        } 
+        }
     }
 }

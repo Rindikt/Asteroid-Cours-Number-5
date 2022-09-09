@@ -15,12 +15,12 @@ namespace Asteroid
         private void Awake()
         {
             _body = GetComponent<Rigidbody2D>();
-            _finishPos = new Vector2(transform.position.x- _range, transform.position.y);
+            _finishPos = new Vector2(transform.position.x - _range, transform.position.y);
         }
         private void Start()
         {
             _health = new Health(_healPoint);
-            
+
         }
         protected override void Move()
         {
@@ -28,19 +28,19 @@ namespace Asteroid
         }
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.collider.TryGetComponent<Bullet>( out Bullet bullet))
+            if (collision.collider.TryGetComponent<Bullet>(out Bullet bullet))
             {
                 _healPoint = _health.GetDamage(bullet.demage);
                 if (_healPoint <= 0)
                 {
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
                     Death.Invoke();
                     Debug.Log(Death);
                 }
             }
-            if (collision.collider.CompareTag(TagManager.PLAYER)|| collision.collider.CompareTag(TagManager.FENCE))
+            if (collision.collider.CompareTag(TagManager.PLAYER) || collision.collider.CompareTag(TagManager.FENCE))
             {
-                Destroy(gameObject);
+                //Destroy(gameObject);
                 Death.Invoke();
             }
         }

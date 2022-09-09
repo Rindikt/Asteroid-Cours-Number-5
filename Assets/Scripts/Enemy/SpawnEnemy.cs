@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 namespace Asteroid
 {
-     internal class SpawnEnemy 
+    internal class SpawnEnemy
     {
         private Transform _spawnPoint;
         private float _offset = 4.3f;
@@ -20,9 +20,9 @@ namespace Asteroid
 
         public void Execute()
         {
-            if (_spawnTime>0)
+            if (_spawnTime > 0)
             {
-                _spawnTime-=Time.deltaTime;
+                _spawnTime -= Time.deltaTime;
             }
             else
             {
@@ -30,75 +30,53 @@ namespace Asteroid
                 _spawnTime = Random.Range(3, 10);
 
             }
-
-            #region oldcode
-            //if (_spawnTime>0)
-            //{
-            //    _spawnTime-=1*Time.deltaTime;
-            //}
-            //else
-            //{ var ran = Random.Range(0, 4);
-            //    switch (ran)
-            //    {
-            //        case 0:
-            //            var unitOne = _viewServices.Get(ManegerEnemy.ASTEROID_SMALL, _asteroidFactory.Get(EnemyType.AsteroidSmal));
-            //            var unOne = unitOne.GetComponent<EnemyAsteroid>();
-            //            //unitOne.GetComponent<EnemyAsteroid>().demage = 4;
-            //            //unitOne.GetComponent<EnemyAsteroid>()._healPoint = 2;
-            //            //unitOne.GetComponent<EnemyAsteroid>().Death += () => _viewServices.Destroy(unitOne);
-            //            unOne.demage = 4;
-            //            unOne._healPoint = 2;
-            //            unOne.Death += () => _viewServices.Destroy(ManegerEnemy.ASTEROID_SMALL, unitOne);
-            //            break;
-            //        case 1:
-            //            var unitSecond = _viewServices.Get(ManegerEnemy.ASTEROID_MEDIUML, _asteroidFactory.Get(EnemyType.AsteroidMedium));
-            //            var unSecond = unitSecond.GetComponent<EnemyAsteroid>();
-            //            unSecond.demage = 6;
-            //            unSecond._healPoint = 4;
-            //            unSecond.Death += () => _viewServices.Destroy(ManegerEnemy.ASTEROID_MEDIUML,unitSecond);
-            //            break;
-            //        case 2:
-            //            //var unitThird = _enemyShipFactory.Get(EnemyType.ShipFighter);
-            //            //var unThird = unitThird.GetComponent<EnemyShip>();
-            //            //unThird.demage = 6;
-            //            //unThird._healPoint = 4;
-            //            //unThird.Death += () => _viewServices.Destroy(unitThird);
-            //            break;
-            //        default:
-            //            var unitFourth = _viewServices.Get(ManegerEnemy.ASTEROID_BIG, _asteroidFactory.Get(EnemyType.AsteroidBig));
-            //            var unFourth = unitFourth.GetComponent<EnemyAsteroid>();
-            //            unFourth.demage = 8;
-            //            unFourth._healPoint = 6;
-            //            unFourth.Death += () => _viewServices.Destroy(ManegerEnemy.ASTEROID_BIG,unitFourth);
-            //            break;
-            //    }
-            //    _spawnTime = Random.Range(5, 7);
-            //}
-            #endregion
         }
         public void Spawn()
         {
             _spawnPosition = GetSpawnPoint();
             int rand = Random.Range(0, 4);
-            //var enemy = _viewServices.Get(ManegerEnemy.LIGHT_FIGHTER,StaticEnemyFactory.GetEnemy(EnemyType.ShipFighter, _spawnPosition));
-            //if (enemy.TryGetComponent<EnemyShip>(out EnemyShip ship))
-            //{
-            //    ship.Death += () => _viewServices.Destroy(ManegerEnemy.LIGHT_FIGHTER,enemy);
-            //}
+            var enemy = new GameObject();
 
             switch (rand)
             {
                 case 0:
-                    StaticEnemyFactory.GetEnemy(EnemyType.AsteroidSmal, _spawnPosition);
+                    enemy = _viewServices.Get(ManegerEnemy.ASTEROID_SMALL, StaticEnemyFactory.GetEnemy(EnemyType.AsteroidSmal, _spawnPosition));
+                    if (enemy.TryGetComponent<EnemyAsteroid>(out EnemyAsteroid enemyASteroidSmal))
+                    {
+                        enemyASteroidSmal.demage = 2.0f;
+                        enemyASteroidSmal._healPoint = 3.0f;
+                        enemyASteroidSmal.Death += () => _viewServices.Destroy(ManegerEnemy.ASTEROID_SMALL, enemy);
+                    }
                     break;
                 case 1:
-                    StaticEnemyFactory.GetEnemy(EnemyType.AsteroidMedium, _spawnPosition);
+                    enemy = _viewServices.Get(ManegerEnemy.ASTEROID_MEDIUML, StaticEnemyFactory.GetEnemy(EnemyType.AsteroidMedium, _spawnPosition));
+                    if (enemy.TryGetComponent<EnemyAsteroid>(out EnemyAsteroid enemyAsteroidMedium))
+                    {
+                        enemyAsteroidMedium.demage = 3.0f;
+                        enemyAsteroidMedium._healPoint = 4.0f;
+                        enemyAsteroidMedium.Death += () => _viewServices.Destroy(ManegerEnemy.ASTEROID_MEDIUML, enemy);
+                    }
                     break;
                 case 2:
-                    StaticEnemyFactory.GetEnemy(EnemyType.AsteroidBig, _spawnPosition);
+
+                    enemy = _viewServices.Get(ManegerEnemy.ASTEROID_BIG, StaticEnemyFactory.GetEnemy(EnemyType.AsteroidBig, _spawnPosition));
+                    if (enemy.TryGetComponent<EnemyAsteroid>(out EnemyAsteroid enemyAsteroidBig))
+                    {
+                        enemyAsteroidBig.demage = 4.0f;
+                        enemyAsteroidBig._healPoint = 5.0f;
+                        enemyAsteroidBig.Death += () => _viewServices.Destroy(ManegerEnemy.ASTEROID_BIG, enemy);
+                    }
+
+
                     break;
                 case 3:
-                    StaticEnemyFactory.GetEnemy(EnemyType.ShipFighter, _spawnPosition);
+                    enemy = _viewServices.Get(ManegerEnemy.LIGHT_FIGHTER, StaticEnemyFactory.GetEnemy(EnemyType.ShipFighter, _spawnPosition));
+                    if (enemy.TryGetComponent<EnemyShip>(out EnemyShip EnemyShipFighter))
+                    {
+                        EnemyShipFighter._healPoint = 4.0f;
+                        EnemyShipFighter.demage = 2.0f;
+                        EnemyShipFighter.Death += () => _viewServices.Destroy(ManegerEnemy.LIGHT_FIGHTER, enemy);
+                    }
                     break;
                 default:
                     throw new Exception();
@@ -107,7 +85,7 @@ namespace Asteroid
 
         private Vector3 GetSpawnPoint()
         {
-             var spawnOffset = new Vector3(_spawnPoint.position.x, Random.Range(_spawnPoint.position.y - _offset, _spawnPoint.position.y + _offset), _spawnPoint.position.z);
+            var spawnOffset = new Vector3(_spawnPoint.position.x, Random.Range(_spawnPoint.position.y - _offset, _spawnPoint.position.y + _offset), _spawnPoint.position.z);
             return spawnOffset;
         }
 

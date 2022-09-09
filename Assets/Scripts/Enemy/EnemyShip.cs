@@ -21,8 +21,11 @@ namespace Asteroid
             _body = GetComponent<Rigidbody2D>();
             _bullet = Resources.Load<GameObject>("Bullet/BulletEnemy");
             weapon = new DefaultWeapon(_weapon, _bullet);
-            _health = new Health(_healPoint);
 
+        }
+        private void Start()
+        {
+            _health = new Health(_healPoint);
         }
         private void Update()
         {
@@ -34,12 +37,12 @@ namespace Asteroid
             transform.right = _player.position - transform.position;
             //Rotation(_player.transform.position);
             if (distance > _stopDistance)
-            {      
-                transform.position = Vector2.MoveTowards(transform.position,_player.position, 0.02f);
+            {
+                transform.position = Vector2.MoveTowards(transform.position, _player.position, 0.02f);
             }
             else
             {
-                if (reload >0)
+                if (reload > 0)
                 {
                     reload -= 1 * Time.deltaTime;
                 }
@@ -57,7 +60,7 @@ namespace Asteroid
                 _healPoint = _health.GetDamage(bullet.demage);
                 if (_healPoint <= 0)
                 {
-                    Destroy(gameObject);
+                    //Destroy(gameObject);
                     Death.Invoke();
                 }
             }

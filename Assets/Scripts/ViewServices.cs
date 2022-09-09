@@ -9,7 +9,7 @@ namespace Asteroid
         private ViewServices() { }
 
         private readonly Dictionary<string, ObjectPool> _viewCache = new Dictionary<string, ObjectPool>();
-        
+
         public static ViewServices Instance()
         {
             if (viewServices == null)
@@ -24,14 +24,14 @@ namespace Asteroid
             {
                 viewPool = new ObjectPool(prefab);
                 _viewCache[name] = viewPool;
-             
+
             }
             Debug.Log(prefab.name);
             var enemy = viewPool.Pop();
             return enemy;
         }
 
-        public void Destroy(string name,GameObject go)
+        public void Destroy(string name, GameObject go)
         {
             Debug.Log("дестрой");
             _viewCache[name].Push(go);
