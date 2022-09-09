@@ -80,29 +80,29 @@ namespace Asteroid
         {
             _spawnPosition = GetSpawnPoint();
             int rand = Random.Range(0, 4);
-            var enemy = _viewServices.Get(ManegerEnemy.LIGHT_FIGHTER,StaticEnemyFactory.GetEnemy(EnemyType.ShipFighter, _spawnPosition));
-            if (enemy.TryGetComponent<EnemyShip>(out EnemyShip ship))
-            {
-                ship.Death += () => _viewServices.Destroy(ManegerEnemy.LIGHT_FIGHTER,enemy);
-            }
-
-            //switch (rand)
+            //var enemy = _viewServices.Get(ManegerEnemy.LIGHT_FIGHTER,StaticEnemyFactory.GetEnemy(EnemyType.ShipFighter, _spawnPosition));
+            //if (enemy.TryGetComponent<EnemyShip>(out EnemyShip ship))
             //{
-            //    case 0:
-            //        StaticEnemyFactory.GetEnemy(EnemyType.AsteroidSmal, _spawnPosition);
-            //        break;
-            //    case 1:
-            //        StaticEnemyFactory.GetEnemy(EnemyType.AsteroidMedium, _spawnPosition);
-            //        break ;
-            //    case 2:
-            //        StaticEnemyFactory.GetEnemy(EnemyType.AsteroidBig, _spawnPosition);
-            //        break;
-            //    case 3:
-            //        StaticEnemyFactory.GetEnemy(EnemyType.ShipFighter, _spawnPosition);
-            //        break;
-            //    default:
-            //        throw new Exception();
-            //}  
+            //    ship.Death += () => _viewServices.Destroy(ManegerEnemy.LIGHT_FIGHTER,enemy);
+            //}
+
+            switch (rand)
+            {
+                case 0:
+                    StaticEnemyFactory.GetEnemy(EnemyType.AsteroidSmal, _spawnPosition);
+                    break;
+                case 1:
+                    StaticEnemyFactory.GetEnemy(EnemyType.AsteroidMedium, _spawnPosition);
+                    break;
+                case 2:
+                    StaticEnemyFactory.GetEnemy(EnemyType.AsteroidBig, _spawnPosition);
+                    break;
+                case 3:
+                    StaticEnemyFactory.GetEnemy(EnemyType.ShipFighter, _spawnPosition);
+                    break;
+                default:
+                    throw new Exception();
+            }
         }
 
         private Vector3 GetSpawnPoint()

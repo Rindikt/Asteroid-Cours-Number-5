@@ -8,7 +8,7 @@ namespace Asteroid
         private GameObject _bullet;
         private float _force = 20.0f;
         private ObjectPool pool;
-        public float demage => 2;
+        public float demage => 1;
 
         public DefaultWeapon(Transform weapon, GameObject bulet)
         {

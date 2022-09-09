@@ -3,23 +3,25 @@ using System.Collections.Generic;
 
 namespace Asteroid
 {
-    internal class EnemyController : MonoBehaviour
+    internal class EnemyController : IStart, IExecute
     {
-        [SerializeField] private Transform _spawnPoint;
-        [SerializeField] private float _speed;
-
+        private Transform _spawnPoint;
         private SpawnEnemy _spawnEnemy;
-
-
-
-        private void Start()
+       
+        public EnemyController(Transform spawnPoint)
         {
-            _spawnEnemy = new SpawnEnemy(_spawnPoint);
-
+            _spawnPoint = spawnPoint;
+    
         }
-        private void Update()
+
+        public void Execute()
         {
             _spawnEnemy.Execute();
+        }
+
+        public void Start()
+        {
+            _spawnEnemy = new SpawnEnemy(_spawnPoint);
         }
     }
 }

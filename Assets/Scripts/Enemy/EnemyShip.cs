@@ -57,6 +57,7 @@ namespace Asteroid
                 _healPoint = _health.GetDamage(bullet.demage);
                 if (_healPoint <= 0)
                 {
+                    Destroy(gameObject);
                     Death.Invoke();
                 }
             }
