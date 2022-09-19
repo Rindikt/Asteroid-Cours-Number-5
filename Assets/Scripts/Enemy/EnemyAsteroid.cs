@@ -22,6 +22,10 @@ namespace Asteroid
             _health = new Health(_healPoint);
 
         }
+        public void SetHeal(float heal)
+        {
+            _health._health = heal;
+        }
         protected override void Move()
         {
             transform.position = Vector2.MoveTowards(transform.position, _finishPos, _speed * Time.deltaTime);
@@ -43,6 +47,10 @@ namespace Asteroid
                 //Destroy(gameObject);
                 Death.Invoke();
             }
+        }
+        private void OnDisable()
+        {
+            
         }
 
     }

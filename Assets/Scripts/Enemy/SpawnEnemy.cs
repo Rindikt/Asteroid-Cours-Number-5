@@ -47,6 +47,7 @@ namespace Asteroid
                         enemyASteroidSmal._healPoint = 3.0f;
                         enemyASteroidSmal.Death += () => _viewServices.Destroy(ManegerEnemy.ASTEROID_SMALL, enemy);
                     }
+                    enemy.transform.position = _spawnPosition;
                     break;
                 case 1:
                     enemy = _viewServices.Get(ManegerEnemy.ASTEROID_MEDIUML, StaticEnemyFactory.GetEnemy(EnemyType.AsteroidMedium, _spawnPosition));
@@ -55,6 +56,7 @@ namespace Asteroid
                         enemyAsteroidMedium.demage = 3.0f;
                         enemyAsteroidMedium._healPoint = 4.0f;
                         enemyAsteroidMedium.Death += () => _viewServices.Destroy(ManegerEnemy.ASTEROID_MEDIUML, enemy);
+                        enemy.transform.position = _spawnPosition;
                     }
                     break;
                 case 2:
@@ -66,7 +68,7 @@ namespace Asteroid
                         enemyAsteroidBig._healPoint = 5.0f;
                         enemyAsteroidBig.Death += () => _viewServices.Destroy(ManegerEnemy.ASTEROID_BIG, enemy);
                     }
-
+                    enemy.transform.position = _spawnPosition;
 
                     break;
                 case 3:
@@ -77,6 +79,7 @@ namespace Asteroid
                         EnemyShipFighter.demage = 2.0f;
                         EnemyShipFighter.Death += () => _viewServices.Destroy(ManegerEnemy.LIGHT_FIGHTER, enemy);
                     }
+                    enemy.transform.position = _spawnPosition;
                     break;
                 default:
                     throw new Exception();

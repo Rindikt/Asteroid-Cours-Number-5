@@ -13,22 +13,22 @@ namespace Asteroid
             {
                 case EnemyType.AsteroidSmal:
                     enemy = Resources.Load<GameObject>("Enemy/Asteroid/AsteroidSmallScelet");
-                    enemy = Object.Instantiate(enemy, transform, Quaternion.identity);
+                    //enemy = Object.Instantiate(enemy, transform, Quaternion.identity);
                     return enemy;
 
                 case EnemyType.AsteroidMedium:
                     enemy = Resources.Load<GameObject>("Enemy/Asteroid/AsteroidMediumScelet");
-                    enemy = Object.Instantiate(enemy, transform, Quaternion.identity);
+                    //enemy = Object.Instantiate(enemy, transform, Quaternion.identity);
                     return enemy;
 
                 case EnemyType.AsteroidBig:
                     enemy = Resources.Load<GameObject>("Enemy/Asteroid/AsteroidBigScelet");
-                    enemy = Object.Instantiate(enemy, transform, Quaternion.identity);
+                    //enemy = Object.Instantiate(enemy, transform, Quaternion.identity);
                     return enemy;
 
                 case EnemyType.ShipFighter:
                     enemy = Resources.Load<GameObject>("Enemy/Ship/LightFighter");
-                    enemy = Object.Instantiate(enemy, transform, Quaternion.identity);
+                    //enemy = Object.Instantiate(enemy, transform, Quaternion.identity);
                     return enemy;
 
                 default:

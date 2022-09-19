@@ -6,7 +6,7 @@ namespace Asteroid
     internal class Health
     {
        
-        private float _health;
+        public float _health;
         public Health(float health)
         {
             _health = health;
